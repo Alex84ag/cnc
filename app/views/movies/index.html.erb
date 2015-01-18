@@ -13,9 +13,8 @@
 
   <tbody>
     <% @movies.each do |movie| %>
-	<% result=Json.parse('http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/35532')%>
       <tr>
-	    <td><%= 'title='%></td>
+	    <td><%= 'result.films[0].title '%></td>
         <td><%= movie.tt_id %></td>
         <td><%= movie.imdb_id %></td>
         <td><%= movie.title %></td>
