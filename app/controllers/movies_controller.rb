@@ -8,7 +8,8 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.all
     @res=JSON.load(open("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/35532"))
-     end
+    @title=res.films
+    end
 
   # GET /movies/1
   # GET /movies/1.json
