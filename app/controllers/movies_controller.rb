@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
-  requir 'httparty'
+  require 'httparty'
 
   # GET /movies
   # GET /movies.json
