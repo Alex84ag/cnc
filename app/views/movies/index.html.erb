@@ -14,7 +14,7 @@
   <tbody>
     <% @movies.each do |movie| %>
       <tr>
-	    <td><%= JSON.load(open("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/"+'35532')) %></td>
+	    <td><%= JSON.load(open("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/"+movie.tt_id.to_s)) %></td>
         <td><%= movie.tt_id %></td>
         <td><%= movie.imdb_id %></td>
         <td><%= movie.title %></td>
