@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.all
     response = HTTParty.get('http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/35532').response
-        @res= JSON.parse(response)
+        @res= JSON.parse(response.body)
      end
 
   # GET /movies/1
