@@ -1,12 +1,13 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
-  require 'json'
+  require 'httparty'
 
   # GET /movies
   # GET /movies.json
   def index
     @movies = Movie.all
-    @res= JSON.parse('http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/35532')
+    response = HTTParty.get('http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/35532')
+    @res= JSON.parse(response.body)
   end
 
   # GET /movies/1
