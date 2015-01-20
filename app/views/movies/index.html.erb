@@ -8,10 +8,10 @@
       <th colspan="2"></th>
     </tr>
   </thead>
-
-<%the_title= JSON.load(open("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/"+movie.tt_id.to_s))['films'][0]['title'] %>
+  
   <tbody>
     <% @movies.each do |movie| %>
+		<%the_title= JSON.load(open("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/"+movie.tt_id.to_s))['films'][0]['title'] %>
       <tr>
         <td><%= movie.tt_id %></td>
         <td><%= the_title %></td>
