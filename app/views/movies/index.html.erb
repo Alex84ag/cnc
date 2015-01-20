@@ -10,8 +10,11 @@
 
   <tbody>
     <% @movies.each do |movie| %>
+	<% movie_0 = JSON.load(open(http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/4377)) %>
+	<% movie_1=JSON.load(open("http://www.omdbapi.com/?i=&t="+movie_0['films'][0]['title'])))%>
       <tr>
         <td><%= movie.tt_id %></td>
+		<td><%= movie_1['Poster'] %></td>
         <td><%= link_to 'Show', movie %></td>
         <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
         <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
