@@ -1,15 +1,11 @@
 class MoviesController < ApplicationController
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
-  require 'httparty'
-  require 'open-uri'
 
   # GET /movies
   # GET /movies.json
   def index
     @movies = Movie.all
-    data=JSON.load(open("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/35532"))
-    @res=data['films'][0]['title']
-    end
+  end
 
   # GET /movies/1
   # GET /movies/1.json
@@ -73,6 +69,6 @@ class MoviesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
-      params.require(:movie).permit(:tt_id, :imdb_id, :title, :production_year)
+      params.require(:movie).permit(:tt_id)
     end
 end
