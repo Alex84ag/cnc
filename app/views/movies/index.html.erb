@@ -12,7 +12,7 @@
   <tbody>
     <% @movies.each do |movie| %>
 		<%data= JSON.load(open("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/"+movie.tt_id.to_s)) %>
-		<%url=JSON.load(open("http://www.omdbapi.com/?i=&t="+data['films'][0]['title']))%>
+		<%url=JSON.load(open("http://www.omdbapi.com/?i=&t="+URI.encode(data['films'][0]['title'])))%>
       <tr>
         <td><%= movie.tt_id %></td>
         <td><%= data['films'][0]['title'] %></td>
