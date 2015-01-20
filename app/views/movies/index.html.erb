@@ -14,7 +14,6 @@
 	<% movie_1=JSON.load(open("http://www.omdbapi.com/?i=&t="+URI.encode(movie_0['films'][0]['title'])))%>
       <tr>
         <td><%= movie.tt_id %></td>
-		<td><%= movie_1['Poster'] %></td>
 		<td><%= image_tag(movie_1['Poster'] ) %></td>
         <td><%= link_to 'Show', movie %></td>
         <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
