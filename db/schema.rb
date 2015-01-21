@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150120223408) do
+ActiveRecord::Schema.define(version: 20150121004805) do
+
+  create_table "movie1s", force: true do |t|
+    t.integer  "tt_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "movie_infos", force: true do |t|
     t.integer  "movie_id"

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :movie1s
+
   resources :movie_infos
 
   resources :movies
