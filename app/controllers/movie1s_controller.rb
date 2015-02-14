@@ -3,5 +3,9 @@ class Movie1sController < ApplicationController
 require 'open-uri'
   # GET /movie1s
   # GET /movie1s.json
- 
+  def index
+    @movie1s = Movie1.all
+  end
+
+  
 end
