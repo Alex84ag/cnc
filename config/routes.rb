@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'pages/home'
+
+  get 'movie2/new'
+
   resources :movie1s
 
   resources :movie_infos

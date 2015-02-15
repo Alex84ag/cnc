@@ -1,0 +1,12 @@
+rails generate model movie2 tt_id:integer genre:string bucket:string
+rake db:migrate
+
+class Movie2 < ActiveRecord::Base
+  attr_accessible :tt_id, :genre, :bucket
+end
+
+rails generate controller Movie2 new
+
+rails console
+Movie2.create!(:tt_id => “441”, :genre => “test_genre”, :bucket => “test_bucket”)
+
