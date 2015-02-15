@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   resources :movies
   
+  resources :movie2s
+  
   root 'pages#home'
 
   get 'welcome/index'
