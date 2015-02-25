@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'movie2s/new'
+
   get 'pages/home'
 
   get 'movie2/new'

@@ -5,7 +5,11 @@ class Movie2 < ActiveRecord::Base
   attr_accessible :tt_id, :genre, :bucket
 end
 
-rails generate controller Movie2 new
+rails generate controller movie2s new
+rails destroy controller movie2
+
+#Add to route
+resources :movie2s
 
 rails console
 Movie2.create!(:tt_id => “441”, :genre => “test_genre”, :bucket => “test_bucket”)
