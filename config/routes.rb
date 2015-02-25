@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   get 'pages/home'
   
-  match '/newMovie',  :to => 'movie2m#new'
+  match '/newMovie',  :to => 'movie2s#new'
 
   resources :movie1s
 
