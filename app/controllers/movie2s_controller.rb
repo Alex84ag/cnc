@@ -2,7 +2,6 @@ class Movie2sController < ApplicationController
   before_action :set_movie2, only: [:show, :edit, :update, :destroy]
   require 'open-uri'
   def new
-     @title = "Database Management"
   end
   def show
      @movie = Movie2.find(params[:id])
