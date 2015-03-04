@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
 
   get 'movie2s/new'
+  
+  get 'movie2s/bucket'
 
   get 'pages/home'
   
-  match '/newMovie',  :to => 'movie2s#new'
+  get '/newMovie',  :to => 'movie2s#new'
+  
+  get '/bucketMovie2s', :to => 'movie2s#bucket'
 
   resources :movie1s
 
@@ -12,7 +16,12 @@ Rails.application.routes.draw do
 
   resources :movies
   
-  resources :movie2s
+  resources :movie2s do
+    collection do
+          delete 'destroy_multiple'
+          post 'import'
+    end
+  end
   
   root 'pages#home'
 

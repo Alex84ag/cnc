@@ -6,11 +6,23 @@ class Movie2 < ActiveRecord::Base
 end
 
 rails generate controller movie2s new
-rails destroy controller movie2
+
 
 #Add to route
 resources :movie2s
 
 rails console
 Movie2.create!(:tt_id => “441”, :genre => “test_genre”, :bucket => “test_bucket”)
+Movie2.create!(:tt_id => 442, :genre => test_genre1, :bucket => test_bucket)
 
+#Add to Movie2sController
+def show
+     @movie = Movie2.find(params[:id])
+end
+
+#Add to views/movie2s show.html.erb
+<%= @movie.tt_id %>, <%= @movie.genre %>, <%= @movie.bucket %>
+
+<% @movies.each do |bucket| %>
+	 <% bucket %>
+<% end %>

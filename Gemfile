@@ -10,6 +10,8 @@ end
 group :development, :test do
   gem "sqlite3"
 end
+#Pagination
+gem "kaminari" 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
