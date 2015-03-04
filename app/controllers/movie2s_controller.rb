@@ -34,10 +34,9 @@ class Movie2sController < ApplicationController
    
    def create
       @movie2 = Movie2.new(movie2_params)
-
       respond_to do |format|
         if @movie2.save
-          format.html { redirect_to @movie2, notice: 'Movie1 was successfully created.' }
+          format.html { redirect_to root_url, notice: 'Movie1 was successfully created.' }
           format.json { render :show, status: :created, location: @movie2 }
         else
           format.html { render :new }
