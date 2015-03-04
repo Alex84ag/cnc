@@ -2,6 +2,8 @@ class Movie2sController < ApplicationController
   before_action :set_movie2, only: [:show, :edit, :update, :destroy]
   require 'open-uri'
   def new
+     @title = "Database Management"
+     @movie2 = Movie2.new
   end
   def show
      @movie = Movie2.find(params[:id])
@@ -31,8 +33,8 @@ class Movie2sController < ApplicationController
    end
    
    def create
-      @movie2 = Movie2.create(movie2_params)
       respond_to do |format|
+        @movie2 = Movie2.create(movie2_params)
         if @movie2.save
           format.html { redirect_to @movie2, notice: 'Movie1 was successfully created.' }
           format.json { render :show, status: :created, location: @movie2 }
