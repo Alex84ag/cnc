@@ -3,7 +3,6 @@ class Movie2sController < ApplicationController
   require 'open-uri'
   def new
      @title = "Database Management"
-      @movie2 = Movie2.new
   end
   def show
      @movie = Movie2.find(params[:id])
