@@ -1,0 +1,54 @@
+<h1><%= @title %></h1>
+<%= paginate @bucketMovies %>
+<%= form_tag destroy_multiple_movie2s_path, method: :delete do %>
+<%= link_to 'Home', pages_home_path %>
+
+<table>
+	  <input type="checkbox" id="selectAll" value="selectAll"> Select / Deselect All<br/><br/>
+      <tr>
+		  <th>Id</th>
+		  <th>Title</th>
+		  <th>Poster</th>
+		  <th>Genre</th>
+		  <th>Bucket</th>
+		  <th>Action</th>
+	  <tr>
+	   <% @bucketMovies.each do |movie1| %>
+	  <tr>
+<% movie_0=JSON.load(open("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/"+movie1.tt_id.to_s)) %>
+<% movie_1=JSON.load(open("http://www.omdbapi.com/?i=&t="+URI.encode(movie_0['films'][0]['title'])))%>
+		<td><%= movie1.id %></td>
+		<td><%= movie_0['films'][0]['title']%></td>
+		<td><%= image_tag(movie_1['Poster'] ) %></td>		  
+	  	<td><%= movie1.genre %></td>
+	  	<td><%= movie1.bucket %></td>	
+        <td><%= link_to 'Show', movie1	 %><br/>
+        <%= link_to 'Edit', edit_movie2_path(movie1) %><br/>
+        <%= link_to 'Destroy', movie1, method: :delete, data: { confirm: 'Are you sure?' } %><br/>
+		<%= check_box_tag "delete[]",movie1.id %></td>
+      </tr>
+	  <% end %>
+	  <%= submit_tag "Delete selected" %>
+	<% end %>
+</table>
+
+<br>
+
+<%= paginate @bucketMovies %>
+
+
+
+
+<script>
+$('#selectAll').click(function() {
+   if (this.checked) {
+       $(':checkbox').each(function() {
+           this.checked = true;                        
+       });
+   } else {
+      $(':checkbox').each(function() {
+           this.checked = false;                        
+       });
+   } 
+});
+</script>
