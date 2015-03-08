@@ -17,7 +17,9 @@
 		  <% tt_id=my_object.split(':')[2].split("\n")[0].strip %>
 		  <% genre=my_object.split(':')[3].split("\n")[0].gsub! /"/, '	' %>
 		  <% bucket=my_object.split(':')[4].split("\n")[0] %>
-		<td><%= id %></td>	  
+		<td><%= id %></td>
+		<td><%  %></td>
+		<td><% %></td>	  
 	  	<td><%= genre %></td>
 	  	<td><%= bucket %></td>
         <td>
