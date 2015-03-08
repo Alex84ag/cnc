@@ -12,8 +12,8 @@
 	  <tr>
     <% @versions.where( event: 'destroy').each do |version| %>
 		  <%= version.created_at%>
-		  <% my_object=version.object %>
-          <% id=my_object.['id'] %>
+		  <% my_object=version.object_changes%>
+          <% id=my_object.split(',')[1].split("\n")[0] %>
 		  <% tt_id=my_object.split(':')[2].split("\n")[0].strip %>
 		  <% genre=my_object.split(':')[3].split("\n")[0].gsub! /"/, '	' %>
 		  <% bucket=my_object.split(':')[4].split("\n")[0] %>
