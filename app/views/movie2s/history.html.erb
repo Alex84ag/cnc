@@ -13,7 +13,7 @@
     <% @versions.where( event: 'destroy').each do |version| %>
 		  <%= version.created_at%>
 		  <% my_object=version.object.to_s %>
-          <% id=my_object.split(',')[0] %>
+
 
 		<td><%= id %></td>
 		<td><%= my_object.to_s  %></td>
