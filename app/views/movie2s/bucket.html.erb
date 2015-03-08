@@ -1,7 +1,9 @@
 <h1><%= @title %></h1>
+
 <%= paginate @bucketMovies %>
 <%= form_tag destroy_multiple_movie2s_path, method: :delete do %>
 <%= link_to 'Home', pages_home_path %>
+<%= link_to 'History', movie2s_history_path %>
 
 <table>
 	  <input type="checkbox" id="selectAll" value="selectAll"> Select / Deselect All<br/><br/>

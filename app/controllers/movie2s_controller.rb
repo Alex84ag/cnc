@@ -48,7 +48,7 @@ class Movie2sController < ApplicationController
     def destroy
       @movie2.destroy
       respond_to do |format|
-        format.html { redirect_to :back, notice: 'Movie2 was successfully destroyed.' }
+        format.html { redirect_to :back, :notice => "Movie was successfully destroyed. #{undo_link}" }
         format.json { head :no_content }
       end
     end	
@@ -66,6 +66,14 @@ class Movie2sController < ApplicationController
     def import
       Movie2.import(params[:file])
       redirect_to root_url, notice: "Movies imported."
+    end
+    
+    def history
+      @versions = PaperTrail::Version.order('created_at DESC').page(params[:page])
+    end
+    
+    def undo_link
+      view_context.link_to("undo", revert_version_path(@movie2.versions.last), :method => :post)
     end
    
    private

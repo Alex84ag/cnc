@@ -11,7 +11,13 @@ group :development, :test do
   gem "sqlite3"
 end
 #Pagination
-gem "kaminari" 
+gem "kaminari"
+#Users
+gem "devise"
+#versionning
+gem 'paper_trail', '~> 4.0.0.beta'
+
+#gem 'protected_attributes'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets

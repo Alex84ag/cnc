@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  devise_for :models
+  devise_for :users
   get 'movie2s/new'
   
   get 'movie2s/bucket'
@@ -10,6 +12,10 @@ Rails.application.routes.draw do
   
   get '/bucketMovie2s', :to => 'movie2s#bucket'
 
+  get '/movie2s/history', to: 'movie2s#history', as: :movie2s_history
+  
+  post "versions/:id/revert" => "versions#revert", :as => "revert_version"
+  
   resources :movie1s
 
   resources :movie_infos
