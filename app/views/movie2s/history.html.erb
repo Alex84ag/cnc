@@ -12,7 +12,7 @@
 	  <tr>
     <% @versions.where( event: 'destroy').each do |version| %>
 		  <%= version.created_at%>
-		  <% my_object=version.object.to_s%>
+		  <% my_object=PaperTrail.serializer.load(version.object)%>
 
 		<td><% %></td>
 		<td><%=my_object %></td>
