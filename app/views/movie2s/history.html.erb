@@ -13,6 +13,20 @@
     <% @versions.where( event: 'destroy').each do |version| %>
 		  <%= version.created_at%>
 
+		Destroyed by:
+		<% if version.whodunnit && version.whodunnit != 'Guest' %>
+		  <% user = User.find_by_id(version.whodunnit) %>
+		  <% if user %>
+		    <%= user.email %>
+		  <% end %>
+		<% else %>
+		  Guest
+		<% end %>	
+		<%= version.created_at%>
+		<%= button_to revert_version_path(version) do%>
+		  undo
+		<% end %>
+	    </td>
     <% end %>
 </div>
 </table>
