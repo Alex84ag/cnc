@@ -12,13 +12,13 @@
 	  <tr>
     <% @versions.where( event: 'destroy').each do |version| %>
 		  <%= version.created_at%>
-		  <% my_object=version.object_changes%>
+		  <% my_object=version.object.to_s%>
 
-		<td><%= id %></td>
+		<td><% %></td>
 		<td><%=my_object %></td>
 		<td><% %></td>	  
-	  	<td><% genre %></td>
-	  	<td><% bucket %></td>
+	  	<td><% %></td>
+	  	<td><% %></td>
         <td>
 		Destroyed by:
 		<% if version.whodunnit && version.whodunnit != 'Guest' %>
