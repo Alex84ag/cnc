@@ -14,7 +14,7 @@
 		  <th>Genre</th>
 		  <th>Bucket</th>
 		  <th>Action</th>
-	  <tr>
+	  </tr>
 	   <% @bucketMovies.each do |movie1| %>
 	  <tr>
 <% movie_0=JSON.load(open("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/"+movie1.tt_id.to_s)) %>
