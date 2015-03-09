@@ -12,7 +12,7 @@
 	  <tr>
     <% @versions.where( event: 'destroy').each do |version| %>
 		  <% if Rails.env.production? %>
-		  	<% my_object=version.object%>
+		  	<% my_object=PaperTrail.serializer.load(version.object)%>
 		  <% else %>
 		  	<% my_object=PaperTrail.serializer.load(version.object)%>
 		  <%end%>
@@ -20,7 +20,7 @@
 		  <% movie_1=JSON.load(open("http://www.omdbapi.com/?i=&t="+URI.encode(movie_0['films'][0]['title'])))%>
 
 		<tr>
-		
+		<td><%=my_object['tt_id'].to_s %></td>
 		
 	    </td>
 		</tr>
