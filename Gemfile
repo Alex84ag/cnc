@@ -17,9 +17,10 @@ gem "devise"
 #versionning
 gem 'paper_trail', '~> 4.0.0.beta'
 
-#gem 'protected_attributes'
+gem 'foundation-rails'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails'  
+gem 'sass'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views

@@ -4,7 +4,7 @@ Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
-  # config.secret_key = '0ff4668028e76762619b66c2b205a9ddd0214c1608a60a64aa5c3daa1f5493bd6431a167075cbe430404d167921f5490c487e8ed1a789168f8287b21a5218d67'
+  # config.secret_key = '882664f569ec431875bdbec1a9ed169b280a053df43b087456ce6a2ff0023aa3d5299670c7c68dea73e5d221128120a88c84c03391efc4a5e06cf256eb6476bc'
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -61,7 +61,7 @@ Devise.setup do |config|
   # :database      = Support basic authentication with authentication key + password
   # config.http_authenticatable = false
 
-  # If http headers should be returned for AJAX requests. True by default.
+  # If 401 status code should be returned for AJAX requests. True by default.
   # config.http_authenticatable_on_xhr = true
 
   # The realm used in Http Basic Authentication. 'Application' by default.
@@ -97,7 +97,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
-  # config.pepper = '3bce57a37c38c49baf229a1e8d26ef0bbaa12bc43ea8ae4cc5ea7f30e8a58ee5741202fc5a75f0dfb05a2b5aa9866be3726b723fc058c91e002665b50dd2876e'
+  # config.pepper = '715f4bb827fdbab3731eab7ea80b19ef11493467a54bfbfabb53bc485b99c739a3758a61c1186fb362b481e0057b64f1c0d482dc44506edc0bedd4e4c635f57a'
 
   # ==> Configuration for :confirmable
   # A period that the user is allowed to access the website even without
@@ -119,7 +119,7 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed, new email is stored in
   # unconfirmed_email column, and copied to email column on successful confirmation.
-  config.reconfirmable = false
+  config.reconfirmable = true
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [ :email ]
@@ -127,6 +127,9 @@ Devise.setup do |config|
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
   # config.remember_for = 2.weeks
+
+  # Invalidates all the remember me tokens when the user signs out.
+  config.expire_all_remember_me_on_sign_out = true
 
   # If true, extends the user's remember period when remembered via cookie.
   # config.extend_remember_period = false
@@ -176,7 +179,7 @@ Devise.setup do |config|
   # config.unlock_in = 1.hour
 
   # Warn on the last attempt before the account is locked.
-  # config.last_attempt_warning = false
+  # config.last_attempt_warning = true
 
   # ==> Configuration for :recoverable
   #

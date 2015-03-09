@@ -16,7 +16,7 @@ class Movie2sController < ApplicationController
    end
    
    def bucket
-     @bucketMovies=Movie2.where('bucket=?',params[:bucket]).order("id ASC").page(params[:page]).per(5)
+     @bucketMovies=Movie2.where('bucket=?',params[:bucket]).order("id ASC").page(params[:page]).per(12)
      @title=params[:bucket]
    end
    

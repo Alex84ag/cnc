@@ -1,56 +1,32 @@
 <h1><%= @title %></h1>
 
 <%= paginate @bucketMovies %>
-<%= form_tag destroy_multiple_movie2s_path, method: :delete do %>
-<%= link_to 'Home', pages_home_path %>
-<%= link_to 'History', movie2s_history_path %>
+<div class="column">
+  <ul class="movies-grid no-bullet row">
+	  <h4 class="column">Featured Movies</h4>
+	  &nbsp &nbsp<input type="checkbox" id="selectAll" value="selectAll"> Select / Deselect All<br/>
+    <% @bucketMovies.each do |movie1| %>
+	<% movie_0=JSON.load(open("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/"+movie1.tt_id.to_s)) %>
+	<% movie_1=JSON.load(open("http://www.omdbapi.com/?i=&t="+URI.encode(movie_0['films'][0]['title'])))%>
+      <li class="large-3 medium-4 small-12 column">
+        <div class="movie-card padly">
+          <div class="movie-info ell glassy-bg padmy padlx">
+            <div class="title">
+              <h6><%= movie_0['films'][0]['title'] %></h6>
+            </div>
+		  <%= link_to movie1, class: "poster" do %>
+            <%= image_tag movie_1['Poster'] %>
+          <% end %>
 
-<table>
-	  <input type="checkbox" id="selectAll" value="selectAll"> Select / Deselect All<br/><br/>
-      <tr>
-		  <th>Id</th>
-		  <th>Title</th>
-		  <th>Poster</th>
-		  <th>Genre</th>
-		  <th>Bucket</th>
-		  <th>Action</th>
-	  </tr>
-	   <% @bucketMovies.each do |movie1| %>
-	  <tr>
-<% movie_0=JSON.load(open("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/"+movie1.tt_id.to_s)) %>
-<% movie_1=JSON.load(open("http://www.omdbapi.com/?i=&t="+URI.encode(movie_0['films'][0]['title'])))%>
-		<td><%= movie1.id %></td>
-		<td><%= movie_0['films'][0]['title']%></td>
-		<td><%= image_tag(movie_1['Poster'] ) %></td>		  
-	  	<td><%= movie1.genre %></td>
-	  	<td><%= movie1.bucket %></td>	
-        <td>
-        <%= link_to 'Edit', edit_movie2_path(movie1) %><br/>
-        <%= link_to 'Destroy', movie1, method: :delete, data: { confirm: 'Are you sure?' } %>
-		<%= check_box_tag "delete[]",movie1.id %><br>
-		<% if (movie1.versions.last.changeset['bucket'])%>
-			<% if (movie1.versions.last.changeset['bucket'][0])%>
-			<%= link_to 'Undo Update', revert_version_path(movie1.versions.last), method: :post%><br>
-			<% if movie1.versions.last.whodunnit && movie1.versions.last.whodunnit != 'Guest' %>
-			  <% user = User.find_by_id(movie1.versions.last.whodunnit) %>
-			  <% if user %>
-			    <%= user.email %>
-			  <% end %>
-			<% else %>
-			Guest
-			<% end %><br>
-			<%= movie1.versions.last.changeset['updated_at'][1]%><br>
-			<%= movie1.versions.last.changeset['bucket'][0] + "->" + movie1.versions.last.changeset['bucket'][1] %>
-			<% end %>
-		<% end %>
-		</td>
-      </tr>
-	  <% end %>
-	  <%= submit_tag "Delete selected" %>
-	<% end %>
-</table>
-
-<br>
+            <%= link_to 'Edit', edit_movie2_path(movie1) %>
+			<%= link_to 'Destroy', movie1, method: :delete, data: { confirm: 'Are you sure?' } %>
+			<%= check_box_tag "delete[]",movie1.id %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
 
 <%= paginate @bucketMovies %>
 

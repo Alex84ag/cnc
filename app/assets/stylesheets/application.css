@@ -12,6 +12,8 @@
  *
  *= require_tree .
  *= require_self
+ *= require foundation_and_overrides
+
  */
 table{width:100%; border-collapse:collapse; table-layout:auto; vertical-align:top; margin-bottom:15px; border:1px solid #CCCCCC;}
 table thead th{color:#FFFFFF; background-color:#666666; border:1px solid #CCCCCC; border-collapse:collapse; text-align:center; table-layout:auto; vertical-align:middle;}
