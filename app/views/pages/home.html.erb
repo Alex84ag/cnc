@@ -1,12 +1,9 @@
-<h1>Pages#home</h1>
+<h1>Home</h1>
 <% @buckets.each do |bucket| %>
-	 <%= link_to bucket.to_s, bucketMovie2s_path(:bucket => bucket.to_s)%>
+	 <%= link_to bucket.to_s, bucketMovie2s_path(:bucket => bucket.to_s)%><br>
 <% end %>
-<%= link_to "Movie DB", movie2s_path %>
 
 <%= form_tag import_movie2s_path, multipart: true do %>
   <%= file_field_tag :file %>
   <%= submit_tag "Import" %>
 <% end %>
-
-<%= link_to 'New Movie2', new_movie2_path %>

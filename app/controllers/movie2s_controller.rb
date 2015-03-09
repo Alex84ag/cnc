@@ -23,7 +23,7 @@ class Movie2sController < ApplicationController
    def update
      respond_to do |format|
        if @movie2.update(movie2_params)
-         format.html { redirect_to @movie2, notice: 'Movie1 was successfully updated.' }
+         format.html { redirect_to bucketMovie2s_path(:bucket => @movie2.bucket), notice: 'Movie1 was successfully updated.' }
          format.json { render :show, status: :ok, location: @movie2 }
        else
          format.html { render :edit }

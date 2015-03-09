@@ -24,10 +24,27 @@
 		<td><%= image_tag(movie_1['Poster'] ) %></td>		  
 	  	<td><%= movie1.genre %></td>
 	  	<td><%= movie1.bucket %></td>	
-        <td><%= link_to 'Show', movie1	 %><br/>
+        <td>
         <%= link_to 'Edit', edit_movie2_path(movie1) %><br/>
-        <%= link_to 'Destroy', movie1, method: :delete, data: { confirm: 'Are you sure?' } %><br/>
-		<%= check_box_tag "delete[]",movie1.id %></td>
+        <%= link_to 'Destroy', movie1, method: :delete, data: { confirm: 'Are you sure?' } %>
+		<%= check_box_tag "delete[]",movie1.id %><br>
+		<% if (movie1.versions.last.changeset['bucket'])%>
+			<%= link_to 'Undo Update', revert_version_path(movie1.versions.last), method: :post%><br>
+			<% if movie1.versions.last.whodunnit && movie1.versions.last.whodunnit != 'Guest' %>
+			  <% user = User.find_by_id(movie1.versions.last.whodunnit) %>
+			  <% if user %>
+			    <%= user.email %>
+			  <% end %>
+			<% else %>
+			Guest
+			<% end %><br>
+			<%= movie1.versions.last.changeset['updated_at'][1]%><br>
+		<% end %>
+
+		<% if movie1.versions.last.changeset['bucket'] %>
+		  <%= movie1.versions.last.changeset['bucket'][0] + "->" + movie1.versions.last.changeset['bucket'][1] %>
+		<% end %><br>
+		</td>
       </tr>
 	  <% end %>
 	  <%= submit_tag "Delete selected" %>
