@@ -25,7 +25,11 @@
 	  	<td><%= movie1.genre %></td>
 	  	<td><%= movie1.bucket %></td>	
         <td>
-
+        <%= link_to 'Edit', edit_movie2_path(movie1) %><br/>
+        <%= link_to 'Destroy', movie1, method: :delete, data: { confirm: 'Are you sure?' } %>
+		<%= check_box_tag "delete[]",movie1.id %><br>
+		<%= movie1.versions.last.changeset %>
+		
 		</td>
       </tr>
 	  <% end %>
