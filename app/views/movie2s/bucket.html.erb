@@ -29,7 +29,19 @@
         <%= link_to 'Destroy', movie1, method: :delete, data: { confirm: 'Are you sure?' } %>
 		<%= check_box_tag "delete[]",movie1.id %><br>
 		<%= movie1.versions.last.changeset %>
-		
+		<% if (movie1.versions.last.changeset['bucket'][0])%>
+			<%= link_to 'Undo Update', revert_version_path(movie1.versions.last), method: :post%><br>
+			<% if movie1.versions.last.whodunnit && movie1.versions.last.whodunnit != 'Guest' %>
+			  <% user = User.find_by_id(movie1.versions.last.whodunnit) %>
+			  <% if user %>
+			    <%= user.email %>
+			  <% end %>
+			<% else %>
+			Guest
+			<% end %><br>
+			<%= movie1.versions.last.changeset['updated_at'][1]%><br>
+			<%= movie1.versions.last.changeset['bucket'][0] + "->" + movie1.versions.last.changeset['bucket'][1] %>
+		<% end %>
 		</td>
       </tr>
 	  <% end %>
