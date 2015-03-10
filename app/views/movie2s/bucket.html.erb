@@ -6,21 +6,26 @@
 	  <h4 class="column">Featured Movies</h4>
 	  &nbsp &nbsp<input type="checkbox" id="selectAll" value="selectAll"> Select / Deselect All<br/>
     <% @bucketMovies.each do |movie1| %>
-	<% movie_0=JSON.load(open("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/"+movie1.tt_id.to_s)) %>
+	<%uri_tt=URI("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/"+movie1.tt_id.to_s)%>
+	<%res_tt=Net::HTTP.get_response(uri_tt)%>
 	
-	<%if (movie_0['films'][0]['title'])%>
-	<% movie_1=JSON.load(open("http://www.omdbapi.com/?i=&t="+URI.encode(movie_0['films'][0]['title'])))%>
-  	<%end%>
+	<% if res_tt.code!='404' and res_tt.code!='401' %>
+		<% movie_0=JSON.load(open(uri_tt)) %>
+		<%my_title=movie_0['films'][0]['title']%>
+		<%uri_tmdb=URI("https://api.themoviedb.org/3/movie/tt"+movie_0['films'][0]['imdb_id'].to_s+"?api_key=a0e48169f6d987eb3a6c9a47fcf577ef")%>
+		<%res_tmdb=Net::HTTP.get_response(uri_tmdb)%>
 	
-	<%if (movie_0['films'][0]['imdb_id'])%>
-	<% poster_path="http://image.tmdb.org/t/p/w342/"+URI.encode(JSON.load(open("https://api.themoviedb.org/3/movie/tt"+URI.encode(movie_0['films'][0]['imdb_id'])+"?api_key=a0e48169f6d987eb3a6c9a47fcf577ef"))['poster_path'])%>
-  	<%end%>
+		<% if res_tmdb.code!='404' and res_tmdb.code!='401'%>
+			<% movie_1=JSON.load(open(uri_tmdb))%>
+			<% poster_path="http://image.tmdb.org/t/p/w342/"+movie_1['poster_path']%>
+		<%end%>
+	<%end%>
 
       <li class="large-3 medium-4 small-12 column">
         <div class="movie-card padly">
           <div class="movie-info ell glassy-bg padmy padlx">
             <div class="title">
-              <h6><%= movie_0['films'][0]['title'] %>
+              <h6><%= my_title %>
 			  </h6>
             </div>
 		  <%= link_to movie1, class: "poster" do %>
