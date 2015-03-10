@@ -8,14 +8,20 @@
     <% @bucketMovies.each do |movie1| %>
 	<% movie_0=JSON.load(open("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/"+movie1.tt_id.to_s)) %>
 	<% movie_1=JSON.load(open("http://www.omdbapi.com/?i=&t="+URI.encode(movie_0['films'][0]['title'])))%>
+  	<%if (movie_0['films'][0]['imdb_id'])%>
+	<%movie_2=JSON.load(open("https://api.themoviedb.org/3/movie/tt"+URI.encode(movie_0['films'][0]['imdb_id'])+"?api_key=a0e48169f6d987eb3a6c9a47fcf577ef"))%>
+	<% poster_path="http://image.tmdb.org/t/p/w342/"+URI.encode(movie_2['poster_path'])%>
+  	<%end%>
+
       <li class="large-3 medium-4 small-12 column">
         <div class="movie-card padly">
           <div class="movie-info ell glassy-bg padmy padlx">
             <div class="title">
-              <h6><%= movie_0['films'][0]['title'] %></h6>
+              <h6><%= movie_0['films'][0]['title'] %>
+			  </h6>
             </div>
 		  <%= link_to movie1, class: "poster" do %>
-            <%= image_tag movie_1['Poster'] %>
+            <%= image_tag  poster_path%>		
           <% end %>
 
             <%= link_to 'Edit', edit_movie2_path(movie1) %>
