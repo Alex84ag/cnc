@@ -17,7 +17,9 @@
 	
 		<% if res_tmdb.code[0]!='4'%>
 			<% movie_1=JSON.load(open(uri_tmdb))%>
-			<% poster_path="http://image.tmdb.org/t/p/w342/"+movie_1['poster_path']%>
+			<% if movie_1['poster_path'] %>
+				<% poster_path="http://image.tmdb.org/t/p/w342/"+movie_1['poster_path']%>
+			<%end%>
 		<%end%>
 	<%end%>
 
