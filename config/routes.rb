@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get 'movie2s/new'
   
   get 'movie2s/bucket'
+  
+  get 'movie2s/addInfo'
 
   get 'pages/home'
   

@@ -75,6 +75,10 @@ class Movie2sController < ApplicationController
     def undo_link
       view_context.link_to("undo", revert_version_path(@movie2.versions.last), :method => :post)
     end
+    
+    def addInfo
+       @movie2s = Movie2.all
+    end
    
    private
      # Use callbacks to share common setup or constraints between actions.
