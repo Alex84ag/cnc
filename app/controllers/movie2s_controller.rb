@@ -77,7 +77,8 @@ class Movie2sController < ApplicationController
     end
     
     def addInfo
-       @movie2s = Movie2.all
+      tmp=Movie2.where(imdb: nil)
+       @movie2s = Movie2.where(tt: nil)
     end
    
    private

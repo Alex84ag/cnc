@@ -1,27 +1,23 @@
-    <%imdb_rating=""%>
-    <% @movie2s.each do |movie| %>
-	<%uri_tt=URI("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/"+movie.tt_id.to_s)%>
-	<%res_tt=Net::HTTP.get_response(uri_tt)%>
-	
-	<% if res_tt.code[0]!='4' %>
-		<% movie_tt=JSON.load(open(uri_tt)) %>
-		<%movie_id=movie_tt['films'][0]['imdb_id']%>
-		<%movie_title=movie_tt['films'][0]['title']%>
-		<% movie_year=movie_tt['films'][0]['year']%>
-		<%uri_tmdb=URI("https://api.themoviedb.org/3/movie/tt"+movie_id.to_s+"?api_key=a0e48169f6d987eb3a6c9a47fcf577ef")%>
-		<%res_tmdb=Net::HTTP.get_response(uri_tmdb)%>
-		<%uri_imdb=URI('http://app.imdb.com/title/maindetails?tconst=tt'+movie_id.to_s)%>
-		<%res_imdb=Net::HTTP.get_response(uri_imdb)%>
-		<% if res_imdb.code[0]!='4'%>
-			<% movie_imdb=JSON.load(open(uri_imdb)) %>
-			<%movie_rating=movie_imdb['data']['rating']%>
-		<%end%>
-	<%end%>
-	
-	<div>
-		<%= movie_title.to_s + " " + movie_year.to_s+ " " + movie_rating.to_s %>
-	</div>
+	<%= @movie2s.count %>
+	<% @movie2s.each do |movie| %>
+		<% sleep(5)%>
+		<% uri_tt=URI("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/"+movie.tt_id.to_s)%>
+		<% res_tt=Net::HTTP.get_response(uri_tt)%>
 
-    <% end %>
-
-
+		<% if (res_tt.code[0]!='4') && (res_tt.code!='500')%>
+			<% movie_tt=JSON.load(open(uri_tt)) %>
+			<% movie.update_attribute(:tt, movie_tt) %>
+			<% movie_id=movie_tt['films'][0]['imdb_id']%>
+			<% movie_title=movie_tt['films'][0]['title']%>
+			<% movie_year=movie_tt['films'][0]['year']%>
+			<% if (movie_id) %>
+				<% uri_imdb=URI('http://app.imdb.com/title/maindetails?tconst=tt'+movie_id.to_s)%>
+				<% res_imdb=Net::HTTP.get_response(uri_imdb)%>
+				<% if (res_imdb.code[0]!='4') && (res_imdb.code!='500')%>
+					<% movie_imdb=JSON.load(open(uri_imdb)) %>
+					<% movie_rating=movie_imdb['data']['rating']%>
+					<% movie.update_attribute(:imdb, movie_imdb) %>
+				<%end%>
+		   <%end%>	
+	    <%end%>	
+	<% end %>
