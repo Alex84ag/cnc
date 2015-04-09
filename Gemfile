@@ -12,6 +12,8 @@ gem "devise"
 #versionning
 gem 'paper_trail', '~> 4.0.0.beta'
 
+gem 'seed_dump'
+
 gem 'foundation-rails'
 # Use SCSS for stylesheets
 gem 'sass-rails'  

@@ -1,3 +1,20 @@
-<%= @movie.tt_id %>, <%= @movie.genre %>, <%= @movie.bucket %>, <%= @movie.tt %>, <%= @movie.imdb %>
 <%= link_to 'Database', movie2s_path %>
 <%= link_to 'Home', pages_home_path %>
+
+<%uri_tmdb=URI("https://api.themoviedb.org/3/movie/"+@movie.imdb['data']['tconst'].to_s+"?api_key=a0e48169f6d987eb3a6c9a47fcf577ef")%>
+<%res_tmdb=Net::HTTP.get_response(uri_tmdb)%>
+<% if res_tmdb.code[0]!='4'%>
+	<% movie=JSON.load(open(uri_tmdb))%>
+	<% if movie['poster_path'] %>
+		<% poster_path="http://image.tmdb.org/t/p/w342"+movie['poster_path']%>
+	<%else%>
+		<% poster_path="http://dummyimage.com/342x513/000/fff&text=No+Poster"%>
+	<%end%>
+<%else%>
+	<% poster_path="http://dummyimage.com/342x513/000/fff&text=No+Poster"%>
+<%end%>
+<div><%= @movie.tt['films'][0]['title'] %></div>
+<div><%= @movie.year %></div>
+<div><%= @movie.imdb_rating %></div>
+<div><%= image_tag  poster_path%></div>
+<div><%= @movie.imdb%></div>

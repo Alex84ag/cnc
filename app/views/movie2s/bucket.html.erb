@@ -1,72 +1,43 @@
 <h1><%= @title %></h1>
-
-<%= paginate @bucketMovies %>
 <div class="column">
-  <ul class="movies-grid no-bullet row">
-	  <h4 class="column">Featured Movies</h4>
-	  &nbsp &nbsp<input type="checkbox" id="selectAll" value="selectAll"> Select / Deselect All<br/>
-   <%imdb_rating=""%>
+	<h4 class="column">Featured Movies</h4>
+	<table>
+	<%= paginate @bucketMovies %>
+	<input type="checkbox" id="selectAll" value="selectAll"> Select / Deselect All<br/><%= form_tag destroy_multiple_movie2s_path, method: :delete do %>
+		<tr>
+			<th>tt_id</th>
+			<th>Title</th>
+  		  	<th>Genre</th>
+  		  	<th>Bucket</th>
+  		  	<th>Year</th>
+  		  	<th>Rating</th>
+  		  	<th>Action</th>
+		<tr>
     <% @bucketMovies.each do |movie| %>
-	<%uri_tt=URI("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/"+movie.tt_id.to_s)%>
-	<%res_tt=Net::HTTP.get_response(uri_tt)%>
-	
-	<% if res_tt.code[0]!='4' %>
-		<% movie_tt=JSON.load(open(uri_tt)) %>
-		<%movie_title=movie_tt['films'][0]['title']%>
-		<% movie_year=movie_tt['films'][0]['year']%>
-		<%uri_tmdb=URI("https://api.themoviedb.org/3/movie/tt"+movie_tt['films'][0]['imdb_id'].to_s+"?api_key=a0e48169f6d987eb3a6c9a47fcf577ef")%>
-		<%res_tmdb=Net::HTTP.get_response(uri_tmdb)%>
-		<%uri_imdb=URI('http://app.imdb.com/title/maindetails?tconst=tt'+movie_tt['films'][0]['imdb_id'].to_s)%>
-		<%res_imdb=Net::HTTP.get_response(uri_imdb)%>
-		<% if res_imdb.code[0]!='4'%>
-			<% movie_imdb=JSON.load(open(uri_imdb)) %>
-			<% if movie_imdb['data']['rating']%>
-				<%imdb_rating=movie_imdb['data']['rating'].to_s + '/10'%>
-			<%end%>
+		<tr>
+			<td><%=movie.tt_id%></td>
+			<td><%=movie.tt['films'][0]['title']%></td>
+		  	<td><%=movie.genre %></td>
+		  	<td><%=movie.bucket %></td>
+			<td><%=movie.tt['films'][0]['year']%></td>
+		<% if (movie.imdb)%>
+			<td><%=movie.imdb['data']['rating'].to_s + '/10'%></td>
+		<% else %>
+			<td><%=""%></td>
 		<%end%>
-	
-		<% if res_tmdb.code[0]!='4'%>
-			<% movie_1=JSON.load(open(uri_tmdb))%>
-			<% if movie_1['poster_path'] %>
-				<% poster_path="http://image.tmdb.org/t/p/w342/"+movie_1['poster_path']%>
-			<%else%>
-				<% poster_path="http://dummyimage.com/342x513/000/fff&text=No+Poster"%>
-			<%end%>
-		<%else%>
-			<% poster_path="http://dummyimage.com/342x513/000/fff&text=No+Poster"%>
-		<%end%>
-	<%else%>
-		<% poster_path="http://dummyimage.com/342x513/000/fff&text=No+Poster"%>
-	<%end%>
-
-      <li class="large-3 medium-4 small-12 column">
-        <div class="movie-card padly">
-          <div class="movie-info ell glassy-bg padmy padlx">
-            <div class="title">
-              <h6><%= movie_title.split(':')[0].to_s + " " + movie_year.to_s + " " +  imdb_rating.to_s%>
-				  <%= " " + movie_tt['films'][0]['imdb_id'].to_s%>
-			  </h6>
-            </div>
-		  <%= link_to movie, class: "poster" do %>
-            <%if poster_path%>
-			<%= image_tag  poster_path%>
-			<%end%>		
-          <% end %>
-
-            <%= link_to 'Edit', edit_movie2_path(movie) %>
-			<%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %>
-			<%= check_box_tag "delete[]",movie.id %>
-          </div>
-        </div>
-      </li>
+			<td><%= link_to 'Show', movie %>
+        		<%= link_to 'Edit', edit_movie2_path(movie) %>
+				<%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %>
+				<%= check_box_tag "delete[]",movie.id %>
+			</td>
+		<tr>
     <% end %>
-  </ul>
+    <%= submit_tag "Delete selected" %>
+  	<%end%>
+</table>
 </div>
 
 <%= paginate @bucketMovies %>
-
-
-
 
 <script>
 $('#selectAll').click(function() {

@@ -16,7 +16,7 @@ class Movie2sController < ApplicationController
    end
    
    def bucket
-     @bucketMovies=Movie2.where('bucket=?',params[:bucket]).order("id ASC").page(params[:page]).per(12)
+     @bucketMovies=Movie2.where.not(imdb: nil).where('bucket=?',params[:bucket]).order("imdb_rating DESC,year DESC").page(params[:page]).per(30)
      @title=params[:bucket]
    end
    
@@ -77,8 +77,13 @@ class Movie2sController < ApplicationController
     end
     
     def addInfo
-      tmp=Movie2.where(imdb: nil)
-       @movie2s = Movie2.where(tt: nil)
+      @movie2s = Movie2.all
+      @movie2s.each do |movie|
+         movie.update_attribute(:year, movie.tt['films'][0]['year'])
+         if movie.imdb
+           movie.update_attribute(:imdb_rating, movie.imdb['data']['rating'])
+         end
+       end
     end
    
    private
