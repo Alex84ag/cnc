@@ -79,9 +79,13 @@ class Movie2sController < ApplicationController
     def addInfo
       @movie2s = Movie2.all
       @movie2s.each do |movie|
-         movie.update_attribute(:year, movie.tt['films'][0]['year'])
          if movie.imdb
-           movie.update_attribute(:imdb_rating, movie.imdb['data']['rating'])
+           if movie.imdb['data']['runtime']
+             movie.update_attribute(:runtime, movie.imdb['data']['runtime']['time'])
+           end
+            if movie.imdb['data']['best_plot']
+             movie.update_attribute(:imdb_plot, movie.imdb['data']['best_plot']['outline'])
+           end        
          end
        end
     end

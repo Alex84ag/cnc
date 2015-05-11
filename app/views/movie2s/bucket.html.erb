@@ -10,7 +10,7 @@
   		  	<th>Genre</th>
   		  	<th>Bucket</th>
   		  	<th>Year</th>
-  		  	<th>Rating</th>
+  		  	<th>IMDB Rating</th>
   		  	<th>Action</th>
 		<tr>
     <% @bucketMovies.each do |movie| %>
@@ -27,7 +27,7 @@
 		<%end%>
 			<td><%= link_to 'Show', movie %>
         		<%= link_to 'Edit', edit_movie2_path(movie) %>
-				<%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %>
+				<%= link_to 'Delete', movie, method: :delete, data: { confirm: 'Are you sure?' } %>
 				<%= check_box_tag "delete[]",movie.id %>
 			</td>
 		<tr>
