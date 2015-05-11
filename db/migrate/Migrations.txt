@@ -1,0 +1,11 @@
+rails generate migration RemoveTitleFromMovies title:string
+rails generate migration RemoveImdbIdFromMovies imdb_id:integer
+rails generate migration RemoveProductionYearFromMovies production_year:integer
+
+rails generate migration AddGenreToMovie1 genre:string:index
+rails generate migration AddBucketToMovie1 bucket:string
+
+rails generate migration AddImdbRatingToMovie2 imdb_ratin::float
+rails generate migration AddYearToMovie2 year:integer
+rails generate migration AddPlotToMovie2 imdb_plot::string
+rails generate migration AddRunTimeToMovie2 runtime:integer

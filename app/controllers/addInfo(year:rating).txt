@@ -1,0 +1,7 @@
+      @movie2s = Movie2.all
+      @movie2s.each do |movie|
+         movie.update_attribute(:year, movie.tt['films'][0]['year'])
+         if movie.imdb
+           movie.update_attribute(:imdb_rating, movie.imdb['data']['rating'])
+         end
+       end

@@ -1,0 +1,72 @@
+<h1><%= @title %></h1>
+
+<%= paginate @bucketMovies %>
+<div class="column">
+  <ul class="movies-grid no-bullet row">
+	  <h4 class="column">Featured Movies</h4>
+	  &nbsp &nbsp<input type="checkbox" id="selectAll" value="selectAll"> Select / Deselect All<br/>
+
+    <% @bucketMovies.each do |movie| %>
+		<%movie_title=movie.tt['films'][0]['title']%>
+		<% movie_year=movie.tt['films'][0]['year']%>
+		<%uri_tmdb=URI("https://api.themoviedb.org/3/movie/tt"+movie.tt['films'][0]['imdb_id'].to_s+"?api_key=a0e48169f6d987eb3a6c9a47fcf577ef")%>
+		<%res_tmdb=Net::HTTP.get_response(uri_tmdb)%>
+		<% if (movie.imdb)%>
+			<%imdb_rating=movie.imdb['data']['rating'].to_s + '/10'%>
+		<% else %>
+			<%imdb_rating=""%>
+		<%end%>
+	
+		<% if res_tmdb.code[0]!='4'%>
+			<% movie_1=JSON.load(open(uri_tmdb))%>
+			<% if movie_1['poster_path'] %>
+				<% poster_path="http://image.tmdb.org/t/p/w342/"+movie_1['poster_path']%>
+			<%else%>
+				<% poster_path="http://dummyimage.com/342x513/000/fff&text=No+Poster"%>
+			<%end%>
+		<%else%>
+			<% poster_path="http://dummyimage.com/342x513/000/fff&text=No+Poster"%>
+		<%end%>
+
+      <li class="large-3 medium-4 small-12 column">
+        <div class="movie-card padly">
+          <div class="movie-info ell glassy-bg padmy padlx">
+            <div class="title">
+              <h6><%= movie_title.split(':')[0].to_s + " " + movie_year.to_s + " " +  imdb_rating.to_s%>
+				  <%= " " + movie.tt['films'][0]['imdb_id'].to_s%>
+			  </h6>
+            </div>
+		  <%= link_to movie, class: "poster" do %>
+            <%if poster_path%>
+			<%= image_tag  poster_path%>
+			<%end%>		
+          <% end %>
+
+            <%= link_to 'Edit', edit_movie2_path(movie) %>
+			<%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %>
+			<%= check_box_tag "delete[]",movie.id %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<%= paginate @bucketMovies %>
+
+
+
+
+<script>
+$('#selectAll').click(function() {
+   if (this.checked) {
+       $(':checkbox').each(function() {
+           this.checked = true;                        
+       });
+   } else {
+      $(':checkbox').each(function() {
+           this.checked = false;                        
+       });
+   } 
+});
+</script>

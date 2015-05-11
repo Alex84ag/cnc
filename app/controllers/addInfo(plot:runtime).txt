@@ -1,0 +1,6 @@
+      @movie2s = Movie2.all
+      @movie2s.each do |movie|
+         if movie.imdb
+            movie.update_attribute(:runtime, movie.imdb['data']['runtime']['time'])
+           movie.update_attribute(:imdb_plot, movie.imdb['data']['best_plot']['outline'].to_s)         end
+       end

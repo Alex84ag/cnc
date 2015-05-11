@@ -1,0 +1,26 @@
+      begin
+       @movie2s = Movie2.where(tt: nil)
+       @movie2s.each do |movie|
+     	   sleep(3)
+     	   uri_tt=URI("http://api.tanktop.tv/api/1/eyJzZXJ2aWNlX2lkIjoxN30:1XKPst:glE97qRYa7ziwUHZN94AIjt5a3U/movie/"+movie.tt_id.to_s)
+     	   res_tt=Net::HTTP.get_response(uri_tt)
+
+         if (res_tt.code[0]!='4') && (res_tt.code!='500')
+           movie_tt=JSON.load(open(uri_tt)) 
+     		   movie.update_attribute(:tt, movie_tt) 
+     		   movie_id=movie_tt['films'][0]['imdb_id']
+     		   if (movie_id) 
+     		     uri_imdb=URI('http://app.imdb.com/title/maindetails?tconst=tt'+movie_id.to_s)
+     			   res_imdb=Net::HTTP.get_response(uri_imdb)
+     			   if (res_imdb.code[0]!='4') && (res_imdb.code!='500')
+     				   movie_imdb=JSON.load(open(uri_imdb)) 
+     				   movie_rating=movie_imdb['data']['rating']
+     				   movie.update_attribute(:imdb, movie_imdb) 
+     			   end
+     		   end	
+     	   end
+       end
+     rescue
+        # handles error
+        retry  # restart from beginning
+     end
